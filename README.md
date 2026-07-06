@@ -1,6 +1,6 @@
 # AI Memory Engineering
 
-Financial advisory agent for multiple synthetic bank clients. Built to study how memory works across sessions.
+Financial advisory agent for multiple synthetic bank clients. Built to study how memory works across sessions in AI.
 
 **Stack:** FastAPI · SQLite · Ollama · Chroma (Phase 1+)
 
