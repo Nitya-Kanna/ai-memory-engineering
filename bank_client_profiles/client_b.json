@@ -1,0 +1,33 @@
+{
+  "client_id": "client_b",
+  "profile_created_at": "2026-07-06",
+  "name": "Priya Subramaniam",
+  "age": 45,
+  "income_type": "self_employed",
+  "monthly_income_myr": 9500,
+  "risk_tolerance": "conservative",
+  "dependents": 1,
+  "employment": "Freelance graphic designer",
+  "existing_products": [
+    {
+      "type": "epf",
+      "account_1_myr": 180000,
+      "account_2_myr": 42000
+    },
+    {
+      "type": "fixed_deposit",
+      "bank": "Public Bank",
+      "value_myr": 60000,
+      "rate_percent": 3.5
+    }
+  ],
+  "goals": [
+    "Preserve capital with low volatility",
+    "Understand PRS options for retirement supplement"
+  ],
+  "notes": "Income varies month to month. Prefers EPF-safe strategies over aggressive funds.",
+  "history_seed": [
+    "2025-10-03: Asked about EPF Account 2 withdrawal rules for housing.",
+    "2026-02-15: Mentioned wanting to retire by 55 and asked about PRS tax relief."
+  ]
+}
