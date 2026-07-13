@@ -81,3 +81,17 @@ def show_profile_summary(client_id: str) -> BankClientProfile:
     print(f"income_type: {profile.income_type}")
     print(f"goals: {profile.goals}")
     return profile
+
+
+def show_episodic_hits(title: str, hits: list[dict]) -> None:
+    """Print Chroma search results (episodic memory)."""
+    print_subheader(title)
+    if not hits:
+        print("(no episodes found)")
+        return
+
+    for index, hit in enumerate(hits, start=1):
+        print(f"\n[{index}] id={hit['id']}")
+        print(f"    client_id={hit['client_id']}  session_id={hit['session_id']}")
+        print(f"    distance={hit['distance']:.4f}  (lower = closer)")
+        print(f"    text:\n{hit['text']}")

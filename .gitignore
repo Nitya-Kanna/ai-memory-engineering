@@ -11,6 +11,7 @@ venv/
 
 data/
 chroma_data/
+chroma_data_test/
 *.db
 
 .DS_Store
