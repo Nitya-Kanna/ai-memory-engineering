@@ -16,7 +16,7 @@ Financial advisory agent for multiple synthetic bank clients. Built to study how
 ## Roadmap
 
 - [x] **Phase 0** — Baseline agent, bank client profiles, SQLite sessions, Ollama, memory tests
-- [ ] **Phase 1** — Episodic memory (Chroma)
+- [x] **Phase 1** — Episodic memory (Chroma)
 - [ ] **Phase 2** — Semantic memory (structured facts + conflict resolution)
 - [ ] **Phase 3** — Procedural memory (workflows)
 
