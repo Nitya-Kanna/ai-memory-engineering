@@ -9,6 +9,7 @@ Phase 1 Step 2: store + search only (not wired into the agent yet).
 
 from __future__ import annotations
 
+from datetime import datetime, timezone
 from uuid import uuid4
 
 import chromadb
@@ -55,16 +56,21 @@ def store_episode(
     assistant_message: str,
     *,
     episode_id: str | None = None,
+    created_at: str | None = None,
     path: str | None = None,
 ) -> str:
     """
     Save one turn into Chroma.
+
+    created_at: ISO 8601 string. Defaults to now (UTC). Tests may pass an
+    explicit backdated value to simulate an older turn.
 
     Returns the episode id.
     """
     collection = get_episodes_collection(path)
     text = format_episode_text(user_message, assistant_message)
     eid = episode_id or str(uuid4())
+    stamp = created_at or datetime.now(timezone.utc).isoformat()
 
     collection.add(
         ids=[eid],
@@ -73,6 +79,7 @@ def store_episode(
             {
                 "client_id": client_id,
                 "session_id": session_id,
+                "created_at": stamp,
             }
         ],
     )
@@ -84,16 +91,23 @@ def search_episodes(
     client_id: str,
     *,
     n_results: int = 3,
+    max_distance: float | None = None,
     path: str | None = None,
 ) -> list[dict]:
     """
     Find past turns for THIS client that are closest in meaning to query.
+
+    max_distance: if set, hits with cosine distance above this are dropped.
+    Without it, this always returns up to n_results hits regardless of how
+    irrelevant they are — there is no "nothing relevant" case.
 
     Returns a list of dicts:
       - id
       - text          (actual words stored in Chroma)
       - client_id
       - session_id
+      - created_at    (ISO 8601 string; ranking below is by distance only,
+                        NOT by this — recency is not considered here)
       - distance      (lower = closer match; cosine distance)
     """
     collection = get_episodes_collection(path)
@@ -124,7 +138,12 @@ def search_episodes(
                 "text": documents[i],
                 "client_id": meta.get("client_id"),
                 "session_id": meta.get("session_id"),
+                "created_at": meta.get("created_at"),
                 "distance": distances[i],
             }
         )
+
+    if max_distance is not None:
+        hits = [h for h in hits if h["distance"] <= max_distance]
+
     return hits

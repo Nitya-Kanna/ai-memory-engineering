@@ -20,10 +20,11 @@ def print_subheader(title: str) -> None:
 def show_working_memory(
     profile: BankClientProfile,
     session_messages: list[dict[str, str]],
+    episodic_context: str | None = None,
 ) -> None:
     """Print exactly what the agent sees this turn (working memory)."""
     print_subheader("WORKING MEMORY (what the agent sees this turn)")
-    messages = build_messages(profile, session_messages)
+    messages = build_messages(profile, session_messages, episodic_context)
 
     for index, message in enumerate(messages, start=1):
         print(f"\n[{index}] role={message['role']}")

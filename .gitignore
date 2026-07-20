@@ -13,6 +13,7 @@ data/
 chroma_data/
 chroma_data_test/
 *.db
+test_output/
 
 .DS_Store
 .pytest_cache/
